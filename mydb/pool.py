@@ -1,6 +1,6 @@
 from dbutils.pooled_db import PooledDB
 from mysql import connector
-from .config import login
+from .login import login
 
 
 class DBPool(object):
