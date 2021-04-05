@@ -7,6 +7,11 @@ from mydb.pool import DBPool
 
 
 def create_stock_tables():
+    """
+    TODO: 目前不可用，因为mysql5.7.不可以给references权限
+
+    :return:
+    """
     fp = os.path.join(CUR_PATH, 'mydb/create_stock_tables.sql')
     with open(fp, 'r') as f:
         sqls = f.read()
