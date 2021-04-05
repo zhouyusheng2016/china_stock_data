@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/projects/china_stock_data')
+
 import os
 from config import CUR_PATH
 from mydb.pool import DBPool
