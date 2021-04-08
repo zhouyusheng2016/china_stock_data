@@ -34,6 +34,7 @@ def db_insert_trade_calendar(datas):
 def db_insert_hs_calendar():
     cal = get_hs_calendar()
     datas = cal.values.tolist()
+    datas = [(t[0], t[1], bool(t[2]))for t in datas]
     print('inserting trade_calendar to db')
     db_insert_trade_calendar(datas)
     print('insertion success')
