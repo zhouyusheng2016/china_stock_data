@@ -17,7 +17,7 @@ def get_stock_list():
 
 
 def db_insert_stock_basic():
-    rename_fileds = [v=='name' and '`name`' or v for v in api_fields]
+    rename_fileds = [v == 'name' and '`name`' or v for v in db_fields]
     fileds = ",".join(rename_fileds)
     stock_basic = get_stock_list()
     stock_basic = stock_basic.values.tolist()
