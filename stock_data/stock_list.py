@@ -17,10 +17,12 @@ def get_stock_list():
 
 
 def db_insert_stock_basic():
-    fileds = ",".join(db_fields)
-
+    rename_fileds = [v=='name' and '`name`' or v for v in api_fields]
+    fileds = ",".join(rename_fileds)
     stock_basic = get_stock_list()
     stock_basic = stock_basic.values.tolist()
+
+
 
     sql = "INSERT INTO research.stock_basic ("+fileds+") " \
           "VALUES (%s, %s, %s, %s, %s, %s, STR_TO_DATE(%s, '%Y%m%d'), STR_TO_DATE(%s, '%Y%m%d'), %s) " \
