@@ -23,7 +23,8 @@ def db_insert_stock_basic():
     stock_basic = stock_basic.values.tolist()
 
     sql = "INSERT INTO research.stock_basic ("+fileds+") " \
-          "VALUES (%s, %s, %s, %s, %s, %s, STR_TO_DATE(%s, '%Y%m%d'), STR_TO_DATE(%s, '%Y%m%d'), %s)"
+          "VALUES (%s, %s, %s, %s, %s, %s, STR_TO_DATE(%s, '%Y%m%d'), STR_TO_DATE(%s, '%Y%m%d'), %s) " \
+          "ON DUPLICATE KEY UPDATE code = code;"
     try:
         conn = DBPool.get_connection()
         cur = conn.cursor()
