@@ -18,16 +18,17 @@ def get_hs_calendar():
 
 def db_insert_trade_calendar(datas):
     sql = "INSERT INTO research.trade_calendar (exchange, cal_date, pretrade_date, is_open) " \
-          "VALUES ( %s, STR_TO_DATE(%s, '%Y%m%d'), %s) ON DUPLICATE KEY UPDATE exchange=exchange;"
+          "VALUES ( %s, STR_TO_DATE(%s, '%Y%m%d'), STR_TO_DATE(%s, '%Y%m%d'), %s) " \
+          "ON DUPLICATE KEY UPDATE exchange=exchange;"
     try:
         conn = DBPool.get_connection()
         cur = conn.cursor()
         cur.executemany(sql, datas)
-    except Exception:
-        pass
+    except Exception as e:
+        raise e
     finally:
-        conn.commit()
         cur.close()
+        conn.commit()
         conn.close()
 
 
