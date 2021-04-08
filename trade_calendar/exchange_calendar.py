@@ -18,7 +18,7 @@ def get_hs_calendar():
 
 
 def db_insert_trade_calendar(datas):
-    sql = "INSERT INTO research.trade_calendar (exchange, cal_date, pretrade_date, is_open) " \
+    sql = "INSERT INTO research.trade_calendar (exchange, cal_date, is_open, pretrade_date) " \
           "VALUES ( %s, STR_TO_DATE(%s, '%Y%m%d'), %s, STR_TO_DATE(%s, '%Y%m%d')) " \
           "ON DUPLICATE KEY UPDATE exchange=exchange;"
     try:
