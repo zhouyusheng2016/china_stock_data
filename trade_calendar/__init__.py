@@ -1,1 +1,1 @@
-from .exchange_calendar import get_calendar, get_hs_calendar
+from .exchange_calendar import get_calendar, get_hs_calendar, db_insert_hs_calendar
