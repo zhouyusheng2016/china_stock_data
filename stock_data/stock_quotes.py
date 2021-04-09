@@ -54,6 +54,35 @@ def get_db_table_col():
     return [t[0] for t in cb]
 
 
+def get_need_update_info():
+    """
+    获取数据库中需要更新的股票行情
+    :return:
+    """
+    sql = "SELECT t1.code, t2.max_td, list_date, delist_date " \
+          "FROM " \
+          "(SELECT code, list_date, delist_date FROM research.stock_basic) as t1 " \
+          "LEFT JOIN " \
+          "(SELECT code, max(trade_date) as max_td FROM research.stock_daily_quotes GROUP BY code) as t2 " \
+          "ON t1.code = t2.code " \
+          "WHERE " \
+          "(" \
+              "t2.max_td < SUBDATE(CURDATE(), 1) " \
+              "AND SUBDATE(CURDATE(), 1) IN (SELECT cal_date FROM research.trade_calendar WHERE is_open = 1 AND cal_date >= list_date )" \
+          ") OR t2.max_td is NULL; "
+    try:
+        conn = DBPool.get_connection()
+        cur = conn.cursor()
+        cur.execute(sql)
+        cb = cur.fetchall()
+    except Exception as e:
+        raise e
+    finally:
+        cur.close()
+        conn.close()
+    return cb
+
+
 def db_insert_datas(datas):
     """
     db插入stok quotes
@@ -81,5 +110,3 @@ def db_insert_datas(datas):
 
 def db_insert_stock_quotes():
     pass
-
-
